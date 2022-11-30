@@ -1,28 +1,10 @@
-import { useEffect, useState, SyntheticEvent } from "react";
 import { AddTodo } from "./AddTodo";
-import {
-  collection,
-  query,
-  onSnapshot,
-  getDocs,
-  DocumentData,
-} from "firebase/firestore";
+import { DocumentData } from "firebase/firestore";
 import { TodoItem } from "./TodoItem";
-import { db } from "../../firebase";
+import { useGetTask } from "hooks/useGetTask";
 
 export const TodoList = () => {
-  const [tasks, setTasks] = useState<DocumentData>([]);
-  useEffect(() => {
-    const q = query(collection(db, "todos"));
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let tasksArr: DocumentData[] = [];
-      querySnapshot.forEach((doc) => {
-        tasksArr.push({ ...doc.data(), id: doc.id });
-      });
-      setTasks(tasksArr);
-    });
-    return () => unsub();
-  });
+  const { tasks } = useGetTask();
 
   return (
     <>

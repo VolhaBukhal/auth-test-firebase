@@ -3,14 +3,6 @@ import { useState, SyntheticEvent } from "react";
 import { doc, deleteDoc, DocumentData, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-interface TodoItemProps {
-  item: DocumentData;
-  handleToggle: (id: string) => void;
-  handleDelete: (id: string) => void;
-  handleUpdate: (id: string) => void;
-  handleEdit: () => void;
-}
-
 export const TodoItem = ({ id, task, completed }: DocumentData) => {
   const [done, setDone] = useState(completed);
   const [editedTask, setEditedTask] = useState(task);
